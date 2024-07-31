@@ -6,8 +6,10 @@
       <label for="email">Email</label>
       <input id="email" type="email" name="mail"
         email
-        required 
-        ngModel/>
+        required
+        ngModel
+        #emailCntrl = 'ngModel'
+        />
     </div>
 
     <div class="control no-margin">
@@ -15,9 +17,16 @@
       <input id="password" type="password" name="passcode" 
         required
         minlength="8"
+        #pwdCntrl="ngModel"
         ngModel/>
     </div>
 
     <button class="button">Login</button>
   </div>
+  <!-- not the best option -->
+  <!-- @if (form.form.touched && form.form.invalid){ -->
+  <!-- @if (form.form.controls['mail'].touched && form.form.controls['passcode'].touched && form.form.invalid){ -->
+  @if (emailCntrl.touched  && pwdCntrl.touched  && form.form.invalid){
+    <p class="control-error">Invalid entries detected. Please check your inputs</p>
+  }
 </form>
