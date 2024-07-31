@@ -4,12 +4,18 @@
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" name="mail" ngModel/>
+      <input id="email" type="email" name="mail"
+        email
+        required 
+        ngModel/>
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" name="passcode" ngModel/>
+      <input id="password" type="password" name="passcode" 
+        required
+        minlength="8"
+        ngModel/>
     </div>
 
     <button class="button">Login</button>
