@@ -14,6 +14,17 @@ export class LoginComponent {
   private destroyRef = inject(DestroyRef)
   constructor(){
     afterNextRender(()=>{
+      const savedForm = localStorage.getItem("login-form");
+      if (savedForm) {
+        const userMail = JSON.parse(savedForm).mail;
+        setTimeout(() => {
+          this.loginform()?.setValue({
+            mail:userMail,
+            passcode: '***********'
+          }) 
+          // this.loginform()?.controls['mail'].setValue(userMail) 1 field alt
+        }, 1000);        
+      }
       const subscription = this.loginform()?.valueChanges?.pipe(debounceTime(500)).subscribe({
         next: (value)=> localStorage.setItem('login-form', JSON.stringify({'mail': value.mail}))        
       })
