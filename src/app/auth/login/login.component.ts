@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+function mustContainQuestionMark(control:AbstractControl){
+  return (control.value.includes('?')) ?  null : {doesNotContainQuestionMark:true}
+}
 
 @Component({
   selector: 'app-login',
@@ -11,10 +15,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl('', {
-      validators:[Validators.required, Validators.email]
+      validators:[Validators.required, Validators.email, mustContainQuestionMark ]
     }),
     password: new FormControl('', {
-      validators:[Validators.minLength(8), Validators.required]
+      validators:[Validators.minLength(8), Validators.required, mustContainQuestionMark]
     })
   })
 
