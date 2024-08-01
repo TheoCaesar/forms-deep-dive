@@ -16,4 +16,14 @@
 
     <button class="button">Login</button>
   </div>
+  <!-- @if(loginForm.controls.email.touched         <-- way too similar to template driven forms ->
+      && loginForm.controls.email.dirty 
+      && loginForm.controls.email.invalid ) { -->
+  @if (emailInvalid){                 <!-- resort to getters -->
+    <p class="control-error">Please enter a valid email address</p>
+  }
+
+  @if (passwordInvalid){                 <!-- resort to getters -->
+    <p class="control-error">Please enter a valid passwor</p>
+  }
 </form>
