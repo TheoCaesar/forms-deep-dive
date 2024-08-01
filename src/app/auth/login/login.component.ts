@@ -10,6 +10,10 @@ function emailIsUnique(control:AbstractControl){
   return (control.value !== 'admin@example.com') ? of(null) : of({notUnique:true})
 }
 
+// Load saved data
+const savedForm = localStorage.getItem('saved-login-form');
+const initialEmailValue = savedForm ? JSON.parse(savedForm).email : '';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,7 +24,7 @@ function emailIsUnique(control:AbstractControl){
 export class LoginComponent {
   destroyRef = inject(DestroyRef);
   loginForm = new FormGroup({
-    email: new FormControl('', {
+    email: new FormControl(initialEmailValue, {
       validators:[Validators.required, Validators.email,  ], 
       asyncValidators: [emailIsUnique] 
     }),
@@ -37,13 +41,6 @@ export class LoginComponent {
     this.destroyRef.onDestroy(() => {
         subscription.unsubscribe();
     });
-
-    // Load saved data
-    const savedForm = localStorage.getItem('saved-login-form');
-    if (savedForm) {
-        const loadedForm = JSON.parse(savedForm);
-        this.loginForm.patchValue({ email: loadedForm.email });
-    }
 }
 
   get emailInvalid(){
