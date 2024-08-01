@@ -1,15 +1,17 @@
-<form>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <h2>Login</h2>
 
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" />
+      <input id="email" type="email" 
+      [formControl] ="loginForm.controls.email"/><!-- one possible way -->
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" />
+      <input id="password" type="password" 
+      formControlName="password"/> <!-- syntactic sugar (shorthand) -->
     </div>
 
     <button class="button">Login</button>
